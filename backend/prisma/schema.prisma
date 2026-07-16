@@ -6,3 +6,50 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// ─── Enums ────────────────────────────────────────────────────────────────────
+//
+// An enum is a fixed list of allowed values for a field.
+// Instead of storing any random string in the role column,
+// Prisma will only allow one of these three exact values.
+
+enum Role {
+  ADMIN   // Can manage the entire system
+  DRIVER  // Drives the bus, marks attendance
+  PARENT  // Tracks their child's bus in real time
+}
+
+// ─── User Model ───────────────────────────────────────────────────────────────
+//
+// A model maps directly to a table in your PostgreSQL database.
+// Each field below becomes a column in the "User" table.
+
+model User {
+  // id — the unique identifier for every user
+  // @id marks this as the primary key
+  // @default(uuid()) tells Prisma to auto-generate a UUID when a user is created
+  // A UUID looks like: "550e8400-e29b-41d4-a716-446655440000"
+  id        String   @id @default(uuid())
+
+  // name — the full name of the user (e.g. "Prasad Ulemale")
+  name      String
+
+  // email — must be unique across all users so no two accounts share the same email
+  // @unique adds a unique constraint on this column in the database
+  email     String   @unique
+
+  // password — stores the hashed password (never store plain text passwords)
+  password  String
+
+  // role — must be one of the values defined in the Role enum above
+  // @default(PARENT) means if no role is provided, the user becomes a PARENT
+  role      Role     @default(PARENT)
+
+  // createdAt — automatically set to the current date and time when a user is created
+  // @default(now()) means Prisma fills this in for you automatically
+  createdAt DateTime @default(now())
+
+  // updatedAt — automatically updated to the current time whenever this record changes
+  // @updatedAt means Prisma manages this field for you — you never set it manually
+  updatedAt DateTime @updatedAt
+}

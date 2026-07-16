@@ -1,8 +1,12 @@
-import 'dotenv/config';
-import app from './app';
+import app from './app'
+import { env } from './config/env'
 
-const PORT = Number(process.env['PORT'] ?? 5000);
+const PORT = env.PORT
 
 app.listen(PORT, () => {
-  console.log(`[server] Running on port ${PORT} in ${process.env['NODE_ENV'] ?? 'development'} mode`);
-});
+  console.log('─────────────────────────────────────────')
+  console.log('🚍  KidCruise Backend')
+  console.log(`📦  Environment : ${env.NODE_ENV}`)
+  console.log(`🌐  Server URL  : http://localhost:${PORT}`)
+  console.log('─────────────────────────────────────────')
+})

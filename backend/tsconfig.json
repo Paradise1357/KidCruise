@@ -1,23 +1,31 @@
 {
   "compilerOptions": {
+    // What version of JavaScript to compile down to
     "target": "ES2020",
+
+    // Use Node.js-style imports (require/module.exports)
     "module": "commonjs",
-    "lib": ["ES2020"],
+
+    // Your TypeScript source files live in src/
     "rootDir": "src",
+
+    // Compiled JavaScript files will go into dist/
     "outDir": "dist",
+
+    // Strict mode — catches common bugs early
     "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "forceConsistentCasingInFileNames": true,
+
+    // Allows default imports from CommonJS packages like express
     "esModuleInterop": true,
+
+    // Allows importing .json files
     "resolveJsonModule": true,
+
+    // Skips type checking of node_modules (faster builds)
     "skipLibCheck": true,
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "removeComments": true
+
+    // Generates .js.map files so errors point to .ts source, not compiled .js
+    "sourceMap": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
